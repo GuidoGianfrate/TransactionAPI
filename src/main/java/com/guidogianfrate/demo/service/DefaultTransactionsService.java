@@ -20,10 +20,8 @@ public class DefaultTransactionsService implements TransactionsService{
 
     @Autowired
     private TransactionRepository transactionRepository;
-
     @Override
-    public void createNewTransaction(Long id, NewTransactionDTO newTransactionDTO) {
-        TransactionModel transactionModel = mapToModel(newTransactionDTO);
+    public void createNewTransaction(Long id, TransactionModel transactionModel) {
         transactionModel.setId(id);
         transactionRepository.save(id, transactionModel);
     }
@@ -35,9 +33,9 @@ public class DefaultTransactionsService implements TransactionsService{
         return transactionByType.stream().map(TransactionModel::getId).collect(Collectors.toList());
     }
     @Override
-    public SumResponse getTotalAmountTransitive(Long id) throws TransactionNotFoundException {
+    public Double getTotalAmountTransitive(Long id) throws TransactionNotFoundException {
         TransactionModel transaction = findById(id);
-        return new SumResponse(calculateTotalAmount(transaction));
+        return calculateTotalAmount(transaction);
     }
     private double calculateTotalAmount(TransactionModel transaction) {
         double sum = transaction.getAmount();

@@ -1,6 +1,5 @@
 package com.guidogianfrate.demo.unit;
 
-
 import com.guidogianfrate.demo.dto.NewTransactionDTO;
 import com.guidogianfrate.demo.dto.SumResponse;
 import com.guidogianfrate.demo.exception.TransactionNotFoundException;
@@ -36,12 +35,12 @@ public class DefaultTransactionsServiceTest {
     @Test
     void createNewTransactionShouldSaveTransaction() {
         Long id = 1L;
-        NewTransactionDTO newTransactionDTO = NewTransactionDTO.builder()
+        TransactionModel transactionModel = TransactionModel.builder()
                 .amount(100.0)
                 .type("shopping")
                 .build();
 
-        transactionsService.createNewTransaction(id, newTransactionDTO);
+        transactionsService.createNewTransaction(id, transactionModel);
         verify(transactionRepository, times(1)).save(anyLong(), any());
     }
     @Test
@@ -95,9 +94,9 @@ public class DefaultTransactionsServiceTest {
         when(transactionRepository.findByParentId(id)).thenReturn(List.of(childTransaction));
         when(transactionRepository.findByParentId(2L)).thenReturn(Collections.emptyList());
 
-        SumResponse result = transactionsService.getTotalAmountTransitive(id);
+        Double result = transactionsService.getTotalAmountTransitive(id);
 
-        assertEquals(150.0, result.getSum());
+        assertEquals(150.0, result);
     }
 
     @Test

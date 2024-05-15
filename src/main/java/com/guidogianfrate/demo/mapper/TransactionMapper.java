@@ -12,5 +12,4 @@ public class TransactionMapper {
                 .parentId(newTransactionDTO.getParentId())
                 .build();
     }
-    
 }

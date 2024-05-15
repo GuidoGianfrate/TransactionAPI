@@ -1,7 +1,6 @@
 package com.guidogianfrate.demo.dto;
 
 import lombok.*;
-
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,7 +1,6 @@
 package com.guidogianfrate.demo.repository;
 
 import com.guidogianfrate.demo.model.TransactionModel;
-
 import java.util.List;
 import java.util.Optional;
 

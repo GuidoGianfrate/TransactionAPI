@@ -3,6 +3,7 @@ package com.guidogianfrate.demo.controller;
 import com.guidogianfrate.demo.dto.NewTransactionDTO;
 import com.guidogianfrate.demo.dto.SumResponse;
 import com.guidogianfrate.demo.exception.TransactionNotFoundException;
+import com.guidogianfrate.demo.model.TransactionModel;
 import com.guidogianfrate.demo.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.guidogianfrate.demo.mapper.TransactionMapper.mapToModel;
 
 @RestController
 @RequestMapping("/transactions")
@@ -26,7 +29,8 @@ public class TransactionsController {
      */
     @PutMapping("/{transactionId}")
     public ResponseEntity<Void> addNewTransaction(@PathVariable Long transactionId, @RequestBody NewTransactionDTO newTransactionDTO) {
-        transactionsService.createNewTransaction(transactionId, newTransactionDTO);
+        TransactionModel transactionModel = mapToModel(newTransactionDTO);
+        transactionsService.createNewTransaction(transactionId, transactionModel);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -48,6 +52,7 @@ public class TransactionsController {
      */
     @GetMapping("/sum/{transactionId}")
     public ResponseEntity<SumResponse> getTotalAmountTransitive(@PathVariable Long transactionId) throws TransactionNotFoundException {
-        return new ResponseEntity<>(transactionsService.getTotalAmountTransitive(transactionId), HttpStatus.OK);
+        SumResponse sumResponse = new SumResponse(transactionsService.getTotalAmountTransitive(transactionId));
+        return new ResponseEntity<>(sumResponse, HttpStatus.OK);
     }
 }
