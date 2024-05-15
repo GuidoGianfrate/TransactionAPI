@@ -1,6 +1,7 @@
 package com.guidogianfrate.demo.service;
 
 import com.guidogianfrate.demo.dto.NewTransactionDTO;
+import com.guidogianfrate.demo.dto.SumResponse;
 import com.guidogianfrate.demo.exception.TransactionNotFoundException;
 import com.guidogianfrate.demo.model.TransactionModel;
 import com.guidogianfrate.demo.repository.TransactionRepository;
@@ -34,9 +35,9 @@ public class DefaultTransactionsService implements TransactionsService{
         return transactionByType.stream().map(TransactionModel::getId).collect(Collectors.toList());
     }
     @Override
-    public Double getTotalAmountTransitive(Long id) throws TransactionNotFoundException {
+    public SumResponse getTotalAmountTransitive(Long id) throws TransactionNotFoundException {
         TransactionModel transaction = findById(id);
-        return calculateTotalAmount(transaction);
+        return new SumResponse(calculateTotalAmount(transaction));
     }
     private double calculateTotalAmount(TransactionModel transaction) {
         double sum = transaction.getAmount();

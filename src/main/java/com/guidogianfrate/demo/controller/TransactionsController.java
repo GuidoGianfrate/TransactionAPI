@@ -1,6 +1,7 @@
 package com.guidogianfrate.demo.controller;
 
 import com.guidogianfrate.demo.dto.NewTransactionDTO;
+import com.guidogianfrate.demo.dto.SumResponse;
 import com.guidogianfrate.demo.exception.TransactionNotFoundException;
 import com.guidogianfrate.demo.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class TransactionsController {
      * and each amount that has this transaction as a parent
      */
     @GetMapping("/sum/{transactionId}")
-    public ResponseEntity<Double> getTotalAmountTransitive(@PathVariable Long transactionId) throws TransactionNotFoundException {
+    public ResponseEntity<SumResponse> getTotalAmountTransitive(@PathVariable Long transactionId) throws TransactionNotFoundException {
         return new ResponseEntity<>(transactionsService.getTotalAmountTransitive(transactionId), HttpStatus.OK);
     }
 }

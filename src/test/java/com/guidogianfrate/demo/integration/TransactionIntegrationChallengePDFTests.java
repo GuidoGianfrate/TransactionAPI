@@ -2,6 +2,7 @@ package com.guidogianfrate.demo.integration;
 
 
 import com.guidogianfrate.demo.dto.NewTransactionDTO;
+import com.guidogianfrate.demo.dto.SumResponse;
 import com.guidogianfrate.demo.repository.TransactionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,13 +59,13 @@ public class TransactionIntegrationChallengePDFTests {
 
         // GET /transactions/sum/10 => {"sum":20000}
         String urlGetSum10 = BASE_PATH + "/sum/10";
-        ResponseEntity<Double> sumId10 = restTemplate.getForEntity(urlGetSum10, Double.class);
-        assertThat(sumId10.getBody(), is(20000.0));
+        ResponseEntity<SumResponse> sumId10 = restTemplate.getForEntity(urlGetSum10, SumResponse.class);
+        assertThat(sumId10.getBody().getSum(), is(20000.0));
 
         // GET /transactions/sum/11 => {"sum":15000}
         String urlGetSum11 = BASE_PATH + "/sum/11";
-        ResponseEntity<Double> sumId11 = restTemplate.getForEntity(urlGetSum11, Double.class);
-        assertThat(sumId11.getBody(), is(15000.0));
+        ResponseEntity<SumResponse> sumId11 = restTemplate.getForEntity(urlGetSum11, SumResponse.class);
+        assertThat(sumId11.getBody().getSum(), is(15000.0));
     }
 
     private void createTransaction(Long id, double amount, String type, Optional<Long> parentId){
