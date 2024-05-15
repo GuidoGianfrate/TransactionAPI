@@ -16,6 +16,6 @@ import java.util.Optional;
 public class TransactionModel {
     private Long id;
     private double amount;
-    private Optional<Long> parent_id;
+    private Optional<Long> parentId;
     private String type;
 }

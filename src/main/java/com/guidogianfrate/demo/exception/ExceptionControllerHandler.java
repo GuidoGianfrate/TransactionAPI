@@ -14,8 +14,6 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         String message = ex.getMessage();
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
-
-    // Handle global exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleGlobalException(Exception ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

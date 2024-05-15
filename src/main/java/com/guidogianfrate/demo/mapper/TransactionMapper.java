@@ -9,7 +9,7 @@ public class TransactionMapper {
         return TransactionModel.builder()
                 .type(newTransactionDTO.getType())
                 .amount(newTransactionDTO.getAmount())
-                .parent_id(newTransactionDTO.getParentId())
+                .parentId(newTransactionDTO.getParentId())
                 .build();
     }
     

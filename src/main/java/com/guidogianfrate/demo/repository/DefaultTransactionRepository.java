@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class DefaultTransactionRepository implements TransactionRepository{
@@ -13,8 +15,8 @@ public class DefaultTransactionRepository implements TransactionRepository{
     private HashMap<Long, TransactionModel> transactions = new HashMap<>();
 
     @Override
-    public TransactionModel findById(Long id) {
-        return transactions.get(id);
+    public Optional<TransactionModel> findById(Long id) {
+        return Optional.ofNullable(transactions.get(id));
     }
 
     @Override
@@ -34,7 +36,13 @@ public class DefaultTransactionRepository implements TransactionRepository{
     }
 
     @Override
-    public List<TransactionModel> findByParentId() {
-        return null;
+    public List<TransactionModel> findByParentId(Long id) {
+        List<TransactionModel> listOfTransactions = new ArrayList<>();
+        for(TransactionModel transactionModel: transactions.values()){
+            if(transactionModel.getParentId().isPresent() && transactionModel.getParentId().get().equals(id)){
+                listOfTransactions.add(transactionModel);
+            }
+        }
+        return listOfTransactions;
     }
 }

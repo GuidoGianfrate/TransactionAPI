@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TransactionIntegrationTests {
+public class TransactionIntegrationChallengePDFTests {
 
     private String BASE_PATH = null;
 
