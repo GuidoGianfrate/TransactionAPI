@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface TransactionRepository {
     TransactionModel findById(Long id);
-    void save(TransactionModel transactionModel);
-    List<TransactionModel> findByType();
+    void save(Long id, TransactionModel transactionModel);
+    List<TransactionModel> findByType(String type);
 
     List<TransactionModel> findByParentId();
 }

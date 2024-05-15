@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Builder;
+
+import java.util.Optional;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,6 +16,6 @@ import lombok.Builder;
 public class TransactionModel {
     private Long id;
     private double amount;
-    private Long parent_id;
+    private Optional<Long> parent_id;
     private String type;
 }

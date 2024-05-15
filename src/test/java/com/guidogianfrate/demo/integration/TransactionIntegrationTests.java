@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TransactionIntegrationTests {
@@ -80,5 +79,6 @@ public class TransactionIntegrationTests {
         HttpEntity httpEntity = new HttpEntity(newTransactionDTO);
         ResponseEntity response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, Void.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(transactionRepository.findById(id), notNullValue());
     }
 }

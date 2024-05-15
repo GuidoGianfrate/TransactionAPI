@@ -1,5 +1,6 @@
 package com.guidogianfrate.demo.controller;
 
+import com.guidogianfrate.demo.dto.NewTransactionDTO;
 import com.guidogianfrate.demo.service.TransactionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,11 +19,12 @@ public class TransactionsController {
     /**
      * \
      * @param transactionId Id of the new transaction
-     * @param newTransaction request body with necessary data to create the new transaction
+     * @param newTransactionDTO request body with necessary data to create the new transaction
      * @return the created transaction
      */
     @PutMapping("/{transactionId}")
-    public ResponseEntity addNewTransaction(@PathVariable Long transactionId, @RequestBody Object newTransaction) {
+    public ResponseEntity<Void> addNewTransaction(@PathVariable Long transactionId, @RequestBody NewTransactionDTO newTransactionDTO) {
+        transactionsService.createNewTransaction(transactionId, newTransactionDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -33,7 +35,7 @@ public class TransactionsController {
      */
     @GetMapping("/types/{type}")
     public ResponseEntity<List<Long>> findAllTransactionsIdByType(@PathVariable String type){
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        return new ResponseEntity<>(transactionsService.getTransactionsIdsByType(type), HttpStatus.OK);
     }
 
     /**

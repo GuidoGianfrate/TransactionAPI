@@ -1,13 +1,16 @@
 package com.guidogianfrate.demo.service;
 
-import com.guidogianfrate.demo.repository.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.guidogianfrate.demo.dto.NewTransactionDTO;
 
-@Service
-public class TransactionsService {
+import java.util.List;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+public interface TransactionsService {
+
+   void createNewTransaction(Long id, NewTransactionDTO newTransactionDTO);
+
+   List<Long> getTransactionsIdsByType(String type);
+
+
+
 
 }
